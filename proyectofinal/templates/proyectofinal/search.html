@@ -1,0 +1,41 @@
+{% extends "proyectofinal/layout.html"%}
+
+{% block body%}
+{% if queryset %}
+<h1 class="alert alert-success text-center">Listado de producto "{{ queryset }}"</h1>
+{% else %}
+<h2 class="alert alert-info text-center">No ingresó búsqueda</h2>
+{% endif %}
+<div class="container">
+    <div class="card-group">
+        <div class="row">
+            {% for resultado in resultados %}
+            <div class="card mb-3 ms-auto" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{resultado.imagen.url}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ resultado.titulo }}</h5>
+                            <p class=" card-text">{{ resultado.contenido }}</p>
+                            <h5 class="card-title" style=color:darkcyan;>Precio: ${{ resultado.precio }}</h5>
+                            <p class="card-text"><small class="text-muted">{{ resultado.categorias }}</small></p>
+                            <a href="{% url 'producto_detalle' resultado.id %}" class="btn btn-success">Ver producto</a>
+                            {% if perms.app %}
+                            <a href="http://127.0.0.1:8000/admin/productos/productos/{{resultado.id}}/change/"
+                                class="btn btn-warning">Editar</a>
+                            <a href="http://127.0.0.1:8000/admin/productos/productos/{{resultado.id}}/delete/"
+                                class="btn btn-danger">Borrar</a>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "proyectofinal/layout.html"%}
+
+{% block body%}
+<div class="form-group">
+    <h1 class="title text-center">Regístrese</h1>
+    <div style="margin:1rem 1rem">
+        <form action="" method="POST">
+
+            <table>
+                {% csrf_token %}
+                {{form.as_table}}
+            </table>
+
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </form>
+    </div>
+    <div style="margin: 1rem 1rem;">
+        <h6>¿Ya tienes cuenta? <a href="{% url 'login' %}">Log in</a></h2>
+    </div>
+</div>
+
+{% endblock %}

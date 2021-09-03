@@ -1,0 +1,27 @@
+{% extends "proyectofinal/layout.html"%}
+
+{% block body%}
+<section style="margin: 5rem 5rem;">
+    {% if "valido" in request.GET %}
+    <div class="alert alert-success " style="font-size:larger;text-align: center;" role="alert">
+        El formulario se completó con éxito.
+    </div>
+    {% endif %}
+    <div class="alert alert-primary " style="font-size:larger;text-align: center;" role="alert">
+        ¡Envianos un correo y contactate con nosotros!
+    </div>
+    <form action="" method="POST" style="text-align: center;">
+        {% csrf_token %}
+        <table style="color: black; margin: 20px auto">{{ form_contacto.as_table }}</table>
+        <input type="submit" value="Enviar" style="width: 150px;">
+    </form>
+    <!-- <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div> -->
+</section>
+{% endblock %}

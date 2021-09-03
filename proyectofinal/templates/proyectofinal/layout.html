@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="{% static 'css/styles.css' %}" rel=stylesheet" type="text">
+    <style>
+        body {
+            min-height: 100vh;
+        }
+
+        footer {
+            position: sticky;
+            top: 100%;
+        }
+    </style>
+    <title>JAGUARETE KAA S.A.</title>
+</head>
+
+<body>
+
+    <header class="bg-dark">
+        <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto navbar-dark">
+                    {% if request.user.is_authenticated == True %}
+                    <li class="nav-item">
+                        <h5 style="color:white;">Conectado como: {{ request.user }}</h5>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+
+                        <form class="d-flex" method=GET action="{% url 'search' %}">
+                            {% csrf_token %}
+                            <!-- {{ myFilter.form }} -->
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                name="search">
+                            <button class="btn btn-success" type="submit" style="margin-right: 0.5rem;">Search</button>
+                        </form>
+                    </li>
+                    {% if request.user.is_authenticated == False %}
+                    <li class="nav-item">
+                        <a class="btn btn-warning" href="{% url 'login' %}" role="button">Login</a>
+                    </li>
+                    <li class="nav-item" style="margin: 0rem 0.5rem;">
+                        <a class="btn btn-danger" href="{% url 'register' %}" role="button">Registrarse</a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_superuser %}
+                    {% else %}
+                    <li class="nav-item">
+
+                        <a href="carro/" class="nav-link">Carro</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark" style="margin-bottom: 1rem">
+            <div class="container">
+                <a href="{% url 'index' %}" class="navbar-brand">JAGUARETE KAA</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Categorías
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark"
+                                        aria-labelledby="navbarDarkDropdownMenuLink">
+                                        {% for categoria in categorias %}
+                                        <li>
+                                            <a class="dropdown-item" href="#">{{ categoria }}</a>
+                                        </li>
+                                        {% endfor %}
+                                </li>
+                            </ul>
+                    </li>
+
+                </ul>
+            </div>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'about' %}" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="mailto:correo@example.com" class="nav-link">Contacto</a>
+            </li>
+            {% if request.user.is_superuser %}
+            <li class="nav-item">
+                <a href="/admin/productos/productos/add/" class="nav-link">+Producto</a>
+            </li>
+            {% endif %}
+            </ul>
+
+            </div>
+        </nav>
+    </header>
+    {% block body %}
+    {% endblock %}
+    <footer class="card-footer text-muted text-center">
+        <p>Todos los derechos reservados. JAGUARETE KAA</p>
+        <p>Desarrollado por Lautaro G. Colazo</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+{% extends "proyectofinal/layout.html"%}
+
+{% block body%}
+<div class="card mb-3">
+    <img src="{{producto.imagen.url}}" class="card-img-top" alt="..." style="width: 250px; height: 250px;">
+    <div class="card-body">
+        <h5 class="card-title" style="font-size: 4rem; color:indianred">{{producto.titulo}}</h5>
+        <p class="card-text" style="font-size: 2rem;"">{{producto.contenido}}</p>
+        <p class=" card-text" style="font-size: 1rem;"">CATEGORÍA: {{producto.categorias}}</p>
+        <p class=" card-text"><small style="color:green;font-size:1.5rem;">Precio: ${{producto.precio}}</small></p>
+        {% if request.user.is_superuser == False %}
+        <button type="button" class="btn btn-primary">
+            <a href="{% url 'carro:agregar' producto.id %}" style="color:blanchedalmond;">Agregar
+                al carrito</a>
+        </button>
+        {% endif %}
+        {% if perms.app %}
+        <a href="http://127.0.0.1:8000/admin/productos/productos/{{producto.id}}/delete/"
+            class="btn btn-danger">Borrar</a>
+        <a href="http://127.0.0.1:8000/admin/productos/productos/{{producto.id}}/change/"
+            class="btn btn-warning">Editar</a>
+        {% endif %}
+    </div>
+</div>
+<!-- <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{producto.imagen.url}}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size: 10rem;">{{producto.titulo}}</h5>
+                <p class="card-text" style="font-size: 3rem;>{{producto.contenido}}</p>
+                <p class=" card-text"><small class="text-muted">{{producto.precio}}</small></p>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <div class="card">
+    <div class="row">
+        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ producto.titulo }}</h5>
+            <p class="card-text">{{ producto.contenido }}</p>
+            <p class="card-text"><small class="text-muted">{{ producto.precio }}</small></p>
+
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="card-group">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for producto in productos %}
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{producto.imagen.url}}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.titulo }}</h5>
+                        <p class=" card-text">{{ producto.contenido }}</p>
+                        <h5 class="card-title" style=color:darkcyan;>Precio: ${{ producto.precio }}</h5>
+                        <p class="card-text"><small class="text-muted">{{ producto.created }}</small></p>
+
+                        <a href="http://127.0.0.1:8000/admin/productos/productos/1/change/"
+                            class="btn btn-danger">Editar</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div> -->
+{% endblock %}

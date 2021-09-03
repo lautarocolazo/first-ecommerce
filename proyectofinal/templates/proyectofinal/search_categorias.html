@@ -1,0 +1,37 @@
+{% extends "proyectofinal/layout.html"%}
+
+{% block body%}
+{% if search %}
+<h1 style="text-align:center;">Listado de producto "{{ search }}"</h1>
+{% else %}
+<h1>No buscaste nada pichón, acá están todos los productos</h1>
+{% endif %}
+<div class="card-group">
+    <div class="row">
+        {% for resultado in resultados %}
+        <div class="card mb-3 ms-auto" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{resultado.imagen.url}}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ resultado.titulo }}</h5>
+                        <p class=" card-text">{{ resultado.contenido }}</p>
+                        <h5 class="card-title" style=color:darkcyan;>Precio: ${{ resultado.precio }}</h5>
+                        <p class="card-text"><small class="text-muted">{{ resultado.categorias }}</small></p>
+                        <a href="{% url 'producto_detalle' resultado.id %}" class="btn btn-success">Ver producto</a>
+                        <a href="http://127.0.0.1:8000/admin/productos/productos/{{resultado.id}}/change/"
+                            class="btn btn-warning">Editar</a>
+                        <a href="http://127.0.0.1:8000/admin/productos/productos/{{resultado.id}}/delete/"
+                            class="btn btn-danger">Borrar</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

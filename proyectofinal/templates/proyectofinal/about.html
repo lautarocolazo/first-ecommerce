@@ -1,0 +1,17 @@
+{% extends "proyectofinal/layout.html"%}
+{% load static %}
+{% block body%}
+<div class="card text-center">
+    <div class="card-header">
+        ¿Quiénes somos?
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Conocenos un poco más</h5>
+        <p class="card-text">Con una trayectoria de más de 30 años con venta al cliente, te ofrecemos la mejor
+            experiencia de compra y venta online en tu propia provincia. <span style="font-weight: bold;">JAGUARETE KAA
+                S.A.</span> es la mejor opción que
+            tenés. Empezá a navegar y comprar ahora.</p>
+        <a href="{% url 'index' %}" class="btn btn-primary">Comenzar a comprar</a>
+    </div>
+</div>
+{% endblock %}

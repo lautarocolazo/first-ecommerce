@@ -1,0 +1,82 @@
+{% extends "proyectofinal/layout.html"%}
+
+{% block body%}
+
+<table class="table table-bordered" style="color:black" ;>
+
+    <thead>
+        <tr>
+            <th colspan="3" class="text-center">
+                Carro de compras
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                Producto
+            </th>
+            <th>
+                Cantidad
+            </th>
+            <th>
+                Suma
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if request.session.carro.items %}
+
+        {% for key, value in request.session.carro.items %}
+        <tr class="text-center">
+            <td>
+                {{value.nombre}}
+            </td>
+            <td>
+                {{value.cantidad}}
+            </td>
+            <td>
+                <a href="{% url 'carro:agregar' value.producto_id%}" class="btn btn-sm btn-success">+</a>
+                <a href="{% url 'carro:restar' value.producto_id%}" class="btn btn-sm btn-success">-</a>
+                $ {{value.precio}}
+
+            </td>
+        </tr>
+        {% endfor %}
+
+        {% else %}
+        <tr>
+            <td colspan="3">
+                <div class="alert alert-warning text-center">Sin productos</div>
+            </td>
+        </tr>
+        {% endif %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="1">
+                Total: $ {{importe_total_carro}}
+
+            </td>
+            <td>
+                <div class=text-center>
+                    <a href="{% url 'carro:limpiar' %}" class="btn btn-danger">Vaciar carro</a>
+                </div>
+            </td>
+            <td>
+                <div class=text-center>
+                    <a href="{% url 'index' %}" class="btn btn-primary">Finalizar compra</a>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- <ul class="list-group">
+    <li class="list-group-item">PRODUCTO 1</li>
+    <li class="list-group-item">PRODUCTO 2</li>
+    <li class="list-group-item">PRODUCTO 3</li>
+    <li class="list-group-item">PRODUCTO 4</li>
+    <li class="list-group-item">PRODUCTO 5</li>
+    <li class="list-group-item">PRECIO TOTAL: ${{importe_total_carro}}</li>
+</ul> -->
+{% endblock %}

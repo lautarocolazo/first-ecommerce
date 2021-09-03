@@ -1,0 +1,30 @@
+{% extends "proyectofinal/layout.html"%}
+
+{% block body%}
+<h1 class="title text-center">Ingrese su cuenta y usuario</h1>
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+<form action="" method="post">
+
+    {% csrf_token %}
+
+    <div class="form-group">
+        <div style="margin:1rem 1rem">
+            Usuario: <input type="text" name="username" placeholder="Usuario..." class="form-control">
+        </div>
+        <div style="margin:1rem 1rem">
+            Contraseña: <input type="password" name="password" placeholder="Contraseña..." class="form-control">
+        </div>
+
+        <div style="margin:1rem 1rem">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </div>
+</form>
+<div style="margin: 1rem 1rem;">
+    <h6>¿No tienes una cuenta? <a href="{% url 'register' %}">Regístrate</a></h2>
+</div>
+{% endblock %}
